@@ -10,13 +10,11 @@ const Message = mongoose.model("Message");
 
 const getUserDetails = async (user_id) => {
     const UserDetails = await User.findById(user_id);
-    // console.log('UserDetails', UserDetails);
     return UserDetails;
 } 
 
 const getGroupDetails = async (group_id) => {
     const GroupDetails = await Group.findById(group_id);
-    // console.log('GroupDetails', GroupDetails);
     return GroupDetails;
 } 
 

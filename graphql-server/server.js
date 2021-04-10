@@ -1,20 +1,16 @@
 const {dotenv} = require('dotenv');
-const { GraphQLServer } = require('graphql-yoga');
+const { GraphQLServer, PubSub } = require('graphql-yoga');
 const mongoose= require('mongoose');
 const cors = require('cors');
 const { get } = require('lodash');
 
 const { mongoURI } = require('./config');
-const typeDefs = require('./typeDef');
-const resolvers = require('./resolver');
+const typeDefs = require('./Queries/typeDef');
+const resolvers = require('./Queries/resolver');
 
 // require('dotenv').config({path:'graphql-server/.env'});
-// console.log('this is env',dotenv);
-//connect mongodb
-// require('./models/user');
-require('./models/group');
-require('./models/messages');
 
+//mongodb connnection
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connection.on('connected', () => {
     console.log('connected to mongodb');
@@ -24,10 +20,13 @@ mongoose.connection.on('error', (err) => {
 })
 
 
+//setting up server
+const pubsub = new PubSub();
+
 const server = new GraphQLServer({typeDefs, resolvers, context: req => {
-    return {...req};
+    return {...req, pubsub};
 }});
 server.start((port) => {
-    console.log('server is running on port', port);
+    console.log('server is running on port 🤘', port);
 })
 

@@ -1,7 +1,7 @@
 // GraphQL typeDef
 const typeDefs = `
     type User {
-        id: ID!
+        id: ID
         user_name: String
         email: String
         password: String
@@ -11,7 +11,7 @@ const typeDefs = `
     }
     
     type Message {
-        id: ID!
+        id: ID
         sender: User
         group: Group
         content: String
@@ -19,7 +19,7 @@ const typeDefs = `
     }
 
     type Group {
-        id: ID!
+        id: ID
         group_name: String
         members: [User]
         messages: [Message]
@@ -47,6 +47,14 @@ these are mutations
         add_group_member (group_id: String!): Boolean
         create_group (group_name: String!): Boolean
     }
+
+"""
+these are subscriptions
+"""
+
+type Subscription {
+    get_new_message: Message
+}
 `;
 
 module.exports = typeDefs;
