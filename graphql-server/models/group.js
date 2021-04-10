@@ -1,27 +1,16 @@
 const mongoose = require('mongoose');
 const {ObjectId}= mongoose.Schema.Types
 const GroupSchema = new mongoose.Schema({
-    title:{
+    group_name:{
         type:String,
         required:true
     },
-    createdTimeStamp: {
-        type: String
-    },
-    members: [
-        {
-            userId: {type:ObjectId, ref:"User"}
-        }
-    ],
-    messages: [
-        {
-            messageId: {type:ObjectId,ref="Message"}
-        }
-    ],
-    isActive: {
+    user_ids: [{type:ObjectId, ref:"User"}],
+    message_ids: [{type:ObjectId,ref:"Message"}],
+    is_active: {
         type: Boolean,
         default: true
     }
-})
+}, {timestamps: true})
 
 mongoose.model("Group", GroupSchema);

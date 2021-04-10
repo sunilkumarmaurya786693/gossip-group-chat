@@ -1,7 +1,7 @@
 var express = require('express');
 const mongoose= require('mongoose');
 var { graphqlHTTP } = require('express-graphql');
-const schema = require('./schema');
+const schema = require('./typeDef');
 const resolver = require('./resolver');
 const { mongoURI } = require('./keys');
 const PORT=4001;
