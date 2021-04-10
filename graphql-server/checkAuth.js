@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const { jWT_SECRET_KEY } = require('./config.js');
 const checkAuthentication = (context) => {
     const token = get(context, 'request.headers.authorization', null);
-    console.log('token', token);
     if(!token)return null;
 
     const isAuthenticate = jwt.verify(token,jWT_SECRET_KEY);

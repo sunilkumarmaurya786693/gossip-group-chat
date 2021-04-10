@@ -15,21 +15,32 @@ const typeDefs = `
         sender: User
         group: Group
         content: String
-        created_at: String
+        createdAt: String
     }
 
     type Group {
         id: ID!
         group_name: String
         members: [User]
-        created_at: String
+        messages: [Message]
+        createdAt: String
     }
 
+
+"""
+this is query
+"""
     type Query {
+        get_users: [User]
         get_messages: [Message]
+        get_groups: [Group]
         login(email:String!, password: String!): String
     }
-    
+
+
+"""
+these are mutations
+"""
     type Mutation {
         register(user_name: String!, email: String!, password: String!, user_type: String):User
         add_message(content: String!, group_id: String!, timeStamp: String): Boolean

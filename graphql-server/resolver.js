@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { ObjectID } = require("mongodb");
 const { get } = require("lodash");
 
+const { getUserDetails, getGroupDetails, getMessageDetails } = require('./Queries/Query');
 const checkAuthentication = require("./checkAuth.js");
 const { passwordEncrptionNumber, jWT_SECRET_KEY } = require("./config.js");
 require("./models/user");
@@ -17,9 +18,23 @@ const Group = mongoose.model("Group");
 // Root resolver
 const resolvers = {
   Query: {
-    get_messages: (_, _a, context) => {
+    get_messages: async (_, __, context) => {
       if (!checkAuthentication(context)) return null;
-      return "Hello World!";
+
+      const all_message = await Message.find();
+      return all_message;
+    },
+
+    get_groups: async(_, __, context) => {
+        if (!checkAuthentication(context)) return null;
+        const all_group = await Group.find();
+        return all_group;
+    },
+
+    get_users: async(_,__, context) => {
+        if (!checkAuthentication(context)) return null;
+        const all_user = await User.find();
+        return all_user;
     },
 
     login: async (_, { email, password }) => {
@@ -42,7 +57,6 @@ const resolvers = {
         const { _id, user_name, email } = userData;
         const user_id = _id;
         const userDetails= await User.findById(user_id);
-        console.log('userDetails----------------', userDetails);
         if(userDetails.user_type === "admin"){
             const groupData = new Group({
                 group_name,
@@ -121,6 +135,43 @@ const resolvers = {
         return res.status(422).json({ error: "please fill all the field" });
       }
     },
+  },
+
+  Message: {
+    sender: async(message, _, context) => {
+        const user_id = message.user_id;
+        return getUserDetails(user_id)
+    },
+    group: async(message, _, context) => {
+        const group_id = message.group_id;
+        console.log('group_id', message);
+        return getGroupDetails(group_id);
+    }
+  },
+  User: {
+      messages: async(userDetails, _, context) => {
+          const message_ids = get(userDetails, 'message_ids', []);
+          const messages= await Promise.all(message_ids.map((message_id) => getMessageDetails(message_id)));
+          return messages;
+      },
+      groups: async(userDetails, _, context) => {
+          const group_ids = get(userDetails, 'group_ids', []);
+          const groups= await Promise.all(group_ids.map(group_id => getGroupDetails(group_id)));
+          return groups;
+      }
+  },
+  Group: {
+      members: async(group, _, context) => {
+          console.log('group', group);
+          const user_ids = get(group, 'user_ids', []);
+          const users_details = await Promise.all(user_ids.map(user_id => getUserDetails(user_id)));
+          return users_details;
+      },
+      messages: async(group, _, context) => {
+        const message_ids = get(group, 'message_ids', []);
+        const messages= await Promise.all(message_ids.map((message_id) => getMessageDetails(message_id)));
+        return messages;
+    }
   },
 };
 
