@@ -1,10 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
-import { get } from 'lodash-es';
+import { forEach, get } from 'lodash-es';
 import cookie from 'js-cookie';
-
-// import Input from '../../widgets/InputBox';
+import { useQuery, gql, useSubscription } from '@apollo/client';
 import styles from './ChatMessages.modules.css';
+
+import { GET_NEW_MESSAGE } from '../../queries/newMessage';
+
+const NewMessages = ({ group_id }) => {
+    const user_id = cookie.get('user-id');
+    const { data } = useSubscription(GET_NEW_MESSAGE);
+    console.log('subscription data-------------------->', data);
+    if (!data) return null;
+    const new_message = {
+        content: get(data, 'get_new_message.content', ''),
+        createdAt: get(data, 'get_new_message.createdAt', 0),
+        sender: get(data, 'get_new_message.sender', {}),
+    };
+    // console.log('new_message------->', newMessages);
+    return (
+        <div
+            className={`${styles.messageRow} ${
+                get(new_message, 'sender.id', null) === user_id ? styles.sender : styles.reciever
+            }`}
+        >
+            <div className={styles.messageContainer}>{get(new_message, 'content', '')}</div>
+        </div>
+    );
+    // })
+};
 
 const ChatDisplay = (props) => {
     const { groups } = useStoreState((state) => state.groups);
@@ -56,6 +80,7 @@ const ChatDisplay = (props) => {
                         </div>
                     );
                 })}
+                <NewMessages group_id={group_id} />
             </div>
 
             {/* <div className={styles.userMessages}>
