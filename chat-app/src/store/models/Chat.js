@@ -1,19 +1,23 @@
 import { thunk, action } from 'easy-peasy';
 import client from '../../apollo/index';
-import { GET_USERS } from '../../queries/chat';
+import { SEND_MESSAGE } from '../../queries';
 
 const defaultValues = {
     name: '',
 };
 
 export default {
-    getSomeQuery: thunk((actions, payload) => {
+    sendMessage: thunk((actions, payload) => {
+        console.log('payload', payload);
         return client
-            .query({
-                query: GET_USERS,
+            .mutate({
+                mutation: SEND_MESSAGE,
                 variables: payload,
             })
-            .then((resp) => resp);
+            .then((resp) => resp)
+            .catch((err) => {
+                throw err;
+            });
     }),
     setTestState: action((state, payload) => {
         return {

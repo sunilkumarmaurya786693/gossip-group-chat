@@ -13,12 +13,56 @@
     color: white;
 }
 
+.chatMessages {
+    padding: 10px 50px;
+}
+
 .userMessages {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
+
 .chatSendInput {
     position: fixed;
     bottom: 0;
+    width: 100%;
+    display: block;
+    z-index: 100;
+    background: #63a1cf;
+}
+
+.inputBox{
+    width: 75%;
+    border: 0px;
+    background: transparent;
+    box-shadow: none;
+    padding: 15px;
+}
+
+.messageRow {
+    width: 100%;
+    display: flex;
+
+}
+
+.sender {
+    justify-content: flex-end;
+}
+
+.receiver {
+    justify-content: flex-end;
+}
+
+.messageContainer {
+    margin: 10px;
+    padding: 10px;
+    box-shadow: -3px -3px 14px 0px #d3d4d4;
+    border-radius: 15px;
+}
+
+.button {
+    padding: 15px 30px;
+    border-radius: 50px;
+    background-color: #7fff00;
 }

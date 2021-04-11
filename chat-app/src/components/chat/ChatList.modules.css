@@ -11,18 +11,20 @@
     margin: 10px 0px;
     padding: 15px;
     cursor: pointer;
+    border-radius: 50px;
+    text-align: center;
     transition: 200ms ease-out;
 }
 
 .listItem:hover {
-    background-color: wheat;
-    border-radius: 10px 50px 50px 10px;
+    background-color: #73bffa94;
     transition: 200ms ease-in;
 }
 
 .activeChat {
-    background-color: wheat;
-    border-radius: 10px 50px 50px 10px;
+    background-color: #a4d1f394;
+    border-radius: 50px;
+    text-align: center;
 }
 
 .chatTitle {
