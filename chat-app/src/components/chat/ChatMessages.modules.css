@@ -1,0 +1,24 @@
+.chatMessageContainer {
+    width: 100%;
+}
+
+.chatDescription {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 10px;
+    background-color: #124369;
+    color: white;
+}
+
+.userMessages {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.chatSendInput {
+    position: fixed;
+    bottom: 0;
+}

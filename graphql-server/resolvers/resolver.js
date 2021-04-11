@@ -10,7 +10,7 @@ const {
   getUserDetails,
   getGroupDetails,
   getMessageDetails,
-} = require("./Query");
+} = require("../Queries/Query");
 require("../models/user");
 require("../models/messages");
 require("../models/group");

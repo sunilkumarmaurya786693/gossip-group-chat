@@ -5,8 +5,8 @@ const cors = require('cors');
 const { get } = require('lodash');
 
 const { mongoURI } = require('./config');
-const typeDefs = require('./Queries/typeDef');
-const resolvers = require('./Queries/resolver');
+const typeDefs = require('./schema/typeDef');
+const resolvers = require('./resolvers/resolver');
 
 // require('dotenv').config({path:'graphql-server/.env'});
 
