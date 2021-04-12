@@ -4,8 +4,7 @@
     "description": "Group chap application",
     "scripts": {
         "start": "webpack serve --config webpack.config.js",
-        "build": "webpack",
-        "prepare": "husky install && npm run prepare"
+        "build": "webpack"
     },
     "husky": {
         "hooks": {

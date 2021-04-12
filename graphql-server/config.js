@@ -6,3 +6,5 @@ module.exports = {
     jWT_SECRET_KEY:"4234[[,.fhhewq ew we",
     mongodbCompassURI:"mongodb+srv://sunil:jJLqwFnSqINz73zX@cluster0.eilce.mongodb.net/test",
 }
+
+  

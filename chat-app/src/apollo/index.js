@@ -19,9 +19,9 @@ const wsLink = new WebSocketLink({
             authorization: getToken(),
         },
     },
-    headers: {
-        authorization: getToken(),
-    },
+    // headers: {
+    //     authorization: getToken(),
+    // },
 });
 
 const splitLink = split(
